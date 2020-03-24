@@ -1,2 +1,2 @@
 # tilon
-ini adalah tugas pwl
+ini adalah tugas pwl latihan git
