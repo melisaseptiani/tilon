@@ -1,7 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class home extends CI_Controller {
+class Home extends CI_Controller {
+
+	function __construct(){
+		parent::__construct();		
+		$this->load->model('m_data');
+		$this->load->helper('url');
+
+	}
 
 	public function index()
 	{
@@ -20,9 +27,18 @@ class home extends CI_Controller {
 	}
 	public function polisi()
 	{
-		$data2['judul'] ='Data Polisi';		
-		$this->load->view('templates/header',$data2);
-		$this->load->view('admin/polisi');
+		$data['judul'] ='Data Polisi';
+		$data['polisi'] = $this->m_data->tampil_data()->result();		
+		$this->load->view('templates/header',$data);
+		$this->load->view('admin/polisi',$data);
+		$this->load->view('templates/footer');
+	}
+	public function dataadmin()
+	{
+		$data['judul'] ='Data Admin';
+		$data['admin'] = $this->m_data->tampil_data()->result();		
+		$this->load->view('templates/header',$data);
+		$this->load->view('admin/polisi',$data);
 		$this->load->view('templates/footer');
 	}
 
@@ -30,30 +46,7 @@ class home extends CI_Controller {
 	{
 		$data['judul'] = 'Pendaftaran Polisi';
 		$this->load->view('templates/header',$data);
-
-      $this->load->helper(array('form','url'));
-       
-      $this->load->library('form_validation');
-      $this->load->library('session');
-       
-      $this->form_validation->set_rules('username','Username','required');
-      $this->form_validation->set_rules('email','Email','required|valid_email'); 
-      $this->form_validation->set_rules('password','Password','required|min_length[6]'); // min_length[5] password tidak boleh kurang dari lima
-      $this->form_validation->set_rules('confirmpassword','Confirm Password','required|min_length[6]|matches[password]'); // matches[password] mencocokan password
-       
-        if ($this->form_validation->run()==FALSE){
-            $this->load->view('admin/daftarpolisi',$data); // file form_view.php
-        }
-       
-        else {      
-
-          $this->session->set_flashdata('succses','Data Yang anda masukan berhasil.');
-          redirect('form');
-        }
-    
-
-
-		
+		$this->load->view('admin/daftarpolisi');		
 		$this->load->view('templates/footer');
 	}
 	public function daftaradmin()
