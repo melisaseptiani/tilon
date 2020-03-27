@@ -12,11 +12,7 @@ class Crud extends CI_Controller{
 
 	function index(){
 		$data['polisi'] = $this->m_data->tampil_data()->result();
-		$data2['judul'] ='Data Polisi';		
-		$this->load->view('templates/header',$data2);
-		$this->load->view('admin/polisi',$data);
-		$this->load->view('templates/footer');
-		
+				
 	}
 
 	function tambah(){
@@ -41,7 +37,23 @@ class Crud extends CI_Controller{
 			'password' => $password
 			);
 		$this->m_data->input_data($data,'polisi');
-		redirect('crud/index');
+		redirect('home/polisi');
+	}
+	function tambah_admin(){
+		$username = $this->input->post('username');
+		$nohp = $this->input->post('nohp');
+		$email = $this->input->post('email');
+		$password = $this->input->post('password');
+ 
+		$data = array(
+			
+			'username' => $username,
+			'nohp' => $nohp,
+			'email' => $emailpolisi,
+			'password' => $password
+			);
+		$this->m_data->input_data($data,'dataadmin');
+		redirect('home/dataadmin');
 	}
 
 }
